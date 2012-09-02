@@ -45,12 +45,12 @@ class WrapperTest(TestCase):
                          '<xml></xml>')
         
     def test_empty_return(self):
-        """Test that `None` is returned when no data is stored"""
+        """Test that `None` is returned when no data is stored."""
         self.assertIsNone(self.cache.retrieve('api.localhost',
                                 '/EVE/Alliances.xml.aspx', {}))
         
     def test_cache_expires(self):
-        """Test that the cache automatically expires"""
+        """Test that the cache automatically expires."""
         obj = self.Cachable()
         obj.cachedUntil = 100.01
         self.cache.store('api.localhost', '/EVE/Alliances.xml.aspx', {},
