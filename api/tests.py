@@ -1,16 +1,13 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
+"""Test basic functionality"""
 
 from django.test import TestCase
+from api import get_api
+from eveapi import _RootContext
 
-
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
-        """
-        Tests that 1 + 1 always equals 2.
-        """
-        self.assertEqual(1 + 1, 2)
+class WrapperTest(TestCase):
+    def setUp(self):
+        self.api = get_api()
+    
+    def test_api_returned(self):
+        """Test that method call returns an instance of the base eveapi class"""
+        self.assertIsInstance(self.api, _RootContext)
