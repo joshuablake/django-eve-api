@@ -24,4 +24,7 @@ def get_api():
         An instance of `eveapi._RootContext`
     
     """
-    return EVEAPIConnection()
+    return EVEAPIConnection(cacheHandler=_CacheHandler())
+
+class _CacheHandler(object):
+    pass
