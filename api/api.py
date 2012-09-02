@@ -12,6 +12,7 @@ Copyright 2012 Joshua Blake
 """
 
 from eveapi import EVEAPIConnection
+from django.core.cache import cache
 
 def get_api():
     """Return connection to the EvE API.
@@ -27,4 +28,9 @@ def get_api():
     return EVEAPIConnection(cacheHandler=_CacheHandler())
 
 class _CacheHandler(object):
-    pass
+    def retrieve(self, host, path, params):
+        return cache.get(hash((host, path, frozenset(params))))
+    
+    def store(self, host, path, params, doc, obj):
+        key = hash((host, path, frozenset(params)))
+        cache.set(key, doc, obj.cachedUntil-obj.currentTime)
